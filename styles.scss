@@ -1,0 +1,66 @@
+.grid-container {
+    margin-top: 1em;
+}
+
+h2 {
+    margin-left: 0.5em;
+}
+
+.icon {
+  color: white !important;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+#search-button {
+    margin-left: -10px;
+}
+
+#options-button {
+    margin-left: 5px;
+}
+
+.card {
+    height: 500px;
+}
+
+#brand {
+    cursor: pointer;
+}
+
+footer {
+    text-align: center;
+    background: #e6e6e6;
+
+    div {
+        display: inline;
+        margin: 0 1em;
+        padding: 0.5em auto;
+    }
+}
+
+@media (max-height: 800px) {
+    .card {
+        height: auto;
+    }
+
+    #search-button {
+        position: absolute;
+        right: 0.5em;
+    }
+    #search-terms {
+        width: 50%;
+        position: absolute;
+        right: 2.75em;
+    }
+
+    footer {
+        div {
+            display: block;
+        }
+    }
+}
