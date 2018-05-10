@@ -66,7 +66,6 @@ function fetchUserSearch(terms) {
         })
         .then(data => {
             let results = data.articles;
-            console.log(results);
             displayCards(results);
         })
         .catch(e => {
@@ -77,6 +76,10 @@ function fetchUserSearch(terms) {
 function displayCards(newsList) {
     let articleContainer = document.getElementById("article-container");
     articleContainer.innerHTML = "";
+
+    if(newsList === undefined) {
+        articleContainer.innerHTML = `<div style="margin: 1em auto; font-size: 0.8em;">Sorry, your search did not return any results.</div>`;
+    }
 
     newsList.map(news => {
         let cardHTML =
