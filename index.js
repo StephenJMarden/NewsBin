@@ -5,9 +5,11 @@ onStart();
 
 function onStart() {
     fetchAllTopNews();
-    document.getElementById("search-terms").addEventListener("click", searchWiden)
+    document.getElementById("search-terms").addEventListener("click", searchWiden);
     document.getElementById("search-button").addEventListener("click", onSearchClick);
     document.getElementById("brand").addEventListener("click", onBrandClick);
+    document.getElementById("search-terms").addEventListener("blur", collapseSearchbar);
+    document.getElementById("search-terms-small").addEventListener("blur", collapseSmallSearchbar);
 }
 
 function checkKeypress(e) {
@@ -30,10 +32,8 @@ function onSearchClick() {
 }
 
 function onSearchClickSmall() {
-    console.log('worked');
     let searchTermsElement = document.getElementById("search-terms-small");
     let terms = searchTermsElement.value;
-    searchTermsElement.classList.remove("search-terms-expand");
     document.getElementById("search-button-small").onclick = activateSmallSearch;
     fetchUserSearch(terms);
 }
@@ -125,10 +125,38 @@ function imgError(img) {
 }
 
 function searchWiden() {
-    document.getElementById("search-terms").classList.add("widen-search");
+    if(!document.getElementById("search-terms").classList.contains("widen-search")){
+        document.getElementById("search-terms").classList.add("widen-search");
+    }
 }
 
 function activateSmallSearch() {
-    document.getElementById("search-terms-small").classList.add("search-terms-expand");
-    document.getElementById("search-button-small").onclick = onSearchClickSmall;
+    if(!document.getElementById("search-terms-small").classList.contains("search-terms-expand")) {
+        document.getElementById("search-terms-small").classList.add("search-terms-expand");
+        document.getElementById("search-terms-small").focus();
+        document.getElementById("search-button-small").onclick = onSearchClickSmall;
+        console.log(document.getElementById("search-button-small").onclick);
+    }
+}
+
+function collapseSearchbar() {
+    let searchTerms = document.getElementById("search-terms");
+    if(searchTerms.classList.contains("widen-search")) {
+        searchTerms.classList.add("collapse-search");
+        searchTerms.classList.remove("widen-search");
+        setTimeout(function(){searchTerms.classList.remove("collapse-search")}, 1000);
+    }
+}
+
+function collapseSmallSearchbar() {
+    let searchTerms = document.getElementById("search-terms-small");
+    if(searchTerms.classList.contains("search-terms-expand")) {
+        searchTerms.classList.add("search-terms-collapse");
+        setTimeout(function(){
+            searchTerms.classList.remove("search-terms-expand");
+            searchTerms.classList.remove("search-terms-collapse");
+        }, 500);
+    }
+
+    setTimeout(function(){document.getElementById("search-button-small").onclick = activateSmallSearch;}, 500);
 }
