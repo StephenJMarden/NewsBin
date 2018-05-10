@@ -1,3 +1,27 @@
+@keyframes search-widen {
+    from {
+        max-width: 200px;
+        width: 200px;
+    }
+    to {
+        max-width: 500px;
+        width: 500px;
+    }
+}
+
+@keyframes small-searchbar-reveal {
+    from {
+        opacity: 0;
+        max-width: 0;
+        width: 0;
+    }
+    to {
+        opacity: 1;
+        max-width: 80vw;
+        width: 80vw;
+    }
+}
+
 .grid-container {
     margin-top: 1em;
 }
@@ -20,12 +44,8 @@ h2 {
     margin-left: -10px;
 }
 
-#options-button {
-    margin-left: 5px;
-}
-
-.card {
-    height: 500px;
+#search-terms {
+    width: 200px;
 }
 
 #brand {
@@ -43,19 +63,36 @@ footer {
     }
 }
 
-@media (max-height: 800px) {
+.widen-search {
+    animation-name: search-widen;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@media (max-width: 600px) {
     .card {
         height: auto;
     }
 
-    #search-button {
+    #search-button-small {
         position: absolute;
-        right: 0.5em;
+        right: 0;
     }
-    #search-terms {
-        width: 50%;
+
+    #search-terms-small {
+        opacity: 0;
+        width: 0;
+        max-width: 0;
         position: absolute;
-        right: 2.75em;
+        right: 2.5em;
+    }
+
+    .search-terms-expand {
+        animation-name: small-searchbar-reveal;
+        animation-duration: 0.5s;
+        animation-timing-function: ease-in-out;
+        animation-fill-mode: forwards;
     }
 
     footer {
