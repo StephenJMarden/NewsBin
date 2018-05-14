@@ -1,5 +1,6 @@
 const newsKey = "&apiKey=d5a8be0f6d7e4726a2f58ffd8cf2ab1a";
 const newsURL = "https://newsapi.org/v2/";
+const enterKeyCode = 13;
 
 onStart();
 
@@ -13,14 +14,16 @@ function onStart() {
 }
 
 function checkKeypress(e) {
-    if(e.keyCode == 13) {
+    // Sends search on enter as well as click
+    if(e.keyCode == enterKeyCode) {
         onSearchClick();
         return false;
     }
 }
 
 function checkKeypressSmall(e) {
-    if(e.keyCode == 13) {
+    // Sends search on enter as well as click
+    if(e.keyCode == enterKeyCode) {
         onSearchClickSmall();
         return false;
     }
@@ -59,7 +62,7 @@ function fetchAllTopNews() {
 }
 
 function fetchUserSearch(terms) {
-    document.getElementById("search-title").innerHTML = "Search Results";
+    document.getElementById("search-title").innerHTML = CONFIG.homepageTitle;
     fetch(newsURL + "everything?q=" + terms + newsKey)
         .then(r => {
             return r.json();
@@ -78,7 +81,7 @@ function displayCards(newsList) {
     articleContainer.innerHTML = "";
 
     if(newsList === undefined) {
-        articleContainer.innerHTML = `<div style="margin: 1em auto; font-size: 0.8em;">Sorry, your search did not return any results.</div>`;
+        articleContainer.innerHTML = `<div style="margin: 1em auto; font-size: 0.8em;">CONFIG.searchError</div>`;
     }
 
     newsList.map(news => {
@@ -98,7 +101,7 @@ function displayCards(newsList) {
 
     let matchMedia = window.matchMedia("(max-width: 700px)");
     if(!matchMedia.matches) {
-        setTimeout(equalizeCards, 500);
+        setTimeout(equalizeCards, CONFIG.shortTimeout);
     }
 }
 
@@ -144,7 +147,7 @@ function collapseSearchbar() {
     if(searchTerms.classList.contains("widen-search")) {
         searchTerms.classList.add("collapse-search");
         searchTerms.classList.remove("widen-search");
-        setTimeout(function(){searchTerms.classList.remove("collapse-search")}, 1000);
+        setTimeout(function(){searchTerms.classList.remove("collapse-search")}, CONFIG.longTimeout);
     }
 }
 
@@ -155,8 +158,8 @@ function collapseSmallSearchbar() {
         setTimeout(function(){
             searchTerms.classList.remove("search-terms-expand");
             searchTerms.classList.remove("search-terms-collapse");
-        }, 500);
+        }, CONFIG.shortTimeout);
     }
 
-    setTimeout(function(){document.getElementById("search-button-small").onclick = activateSmallSearch;}, 500);
+    setTimeout(function(){document.getElementById("search-button-small").onclick = activateSmallSearch;}, CONFIG.shortTimeout);
 }
