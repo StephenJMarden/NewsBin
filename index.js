@@ -81,7 +81,7 @@ function displayCards(newsList) {
     articleContainer.innerHTML = "";
 
     if(newsList === undefined) {
-        articleContainer.innerHTML = `<div style="margin: 1em auto; font-size: 0.8em;">CONFIG.searchError</div>`;
+        articleContainer.innerHTML = CONFIG.searchError;
     }
 
     newsList.map(news => {
